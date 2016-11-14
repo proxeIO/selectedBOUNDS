@@ -17,12 +17,13 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 bl_info = {
   'name': 'Selection Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, 0),
+  'version': (0, 1),
   'blender': (2, 69, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound indicators around objects.',
   # 'wiki_url': '',
   # 'tracker_url': '',
+  'warning': 'BETA',
   'category': '3D View'
 }
 
@@ -30,5 +31,33 @@ bl_info = {
 import bpy
 from bpy.utils import register_module, unregister_module
 from bpy.props import PointerProperty
+from bpy.app.handlers import persistent
 
 from .addon import interface, operator, properties
+
+
+@persistent
+def load_handler(self):
+  bpy.ops.view3d.selection_bounds('INVOKE_DEFAULT')
+
+bpy.app.handlers.load_post.append(load_handler)
+
+def register():
+
+  register_module(__name__)
+
+  bpy.types.Scene.selection_bounds = PointerProperty(
+    type = properties.selection_bounds,
+    name = 'Selection Bounds',
+    description = 'Storage location for selection bounds settings.'
+  )
+
+  bpy.types.VIEW3D_PT_view3d_display.append(interface.draw)
+
+def unregister():
+
+  unregister_module(__name__)
+
+  bpy.types.VIEW3D_PT_view3d_display.remove(interface.draw)
+
+  del bpy.types.Scene.selection_bounds
