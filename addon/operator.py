@@ -33,7 +33,8 @@ class selection_bounds(Operator):
 
     if context.object:
 
-      option = context.scene.selection_bounds
+      try: option = context.scene.selection_bounds
+      except: return
       length = option.length*0.5
 
       glEnable(GL_BLEND)
@@ -97,8 +98,6 @@ def draw_lines(length, matrix, origin, x, y, z):
   x = matrix * Vector(x)
   y = matrix * Vector(y)
   z = matrix * Vector(z)
-
-  # origin = matrix * Vector(origin)
 
   glBegin(GL_LINES)
 
