@@ -41,7 +41,7 @@ class selection_bounds(Operator):
 
       if option.mode == 'ACTIVE':
 
-        if context.object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT'}:
+        if context.object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'LATTICE'}:
 
           color = option.color if not option.use_object_color else context.object.color
           glColor4f(color[0], color[1], color[2], color[3])
@@ -55,7 +55,7 @@ class selection_bounds(Operator):
 
         for object in context.selected_objects:
 
-          if object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT'}:
+          if object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'LATTICE'}:
 
             color = option.color if not option.use_object_color else object.color
             glColor4f(color[0], color[1], color[2], color[3])
