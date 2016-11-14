@@ -10,14 +10,14 @@ def draw(self, context):
 
   column.prop(context.scene.selection_bounds, 'mode', text='')
 
-  # column.separator()
+  if context.scene.selection_bounds.mode != 'NONE':
 
-  row = column.row(align=True)
+    row = column.row(align=True)
 
-  row.prop(context.scene.selection_bounds, 'color', text='')
+    row.prop(context.scene.selection_bounds, 'color', text='')
 
-  row.prop(context.scene.selection_bounds, 'use_object_color', text='', icon='OBJECT_DATA')
+    row.prop(context.scene.selection_bounds, 'use_object_color', text='', icon='OBJECT_DATA')
 
-  column.prop(context.scene.selection_bounds, 'width')
+    column.prop(context.scene.selection_bounds, 'width')
 
-  column.prop(context.scene.selection_bounds, 'length', slider=True)
+    column.prop(context.scene.selection_bounds, 'length', slider=True)

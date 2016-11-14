@@ -8,8 +8,9 @@ class selection_bounds(PropertyGroup):
     name = 'Display Mode',
     description = 'What objects to display bounds around.',
     items = [
+      ('NONE', 'None', 'Disable selection bounds.'),
+      ('SELECTED', 'Selected Objects', 'The selected objects.'),
       ('ACTIVE', 'Active Object', 'The active object.'),
-      ('SELECTED', 'Selected Objects', 'The selected objects.')
     ],
     default = 'ACTIVE'
   )

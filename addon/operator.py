@@ -52,7 +52,7 @@ class selection_bounds(Operator):
 
           draw_corner(length, matrix, bounds)
 
-      else:
+      elif option.mode == 'SELECTED':
 
         for object in context.selected_objects:
 
@@ -65,6 +65,8 @@ class selection_bounds(Operator):
             bounds = object.bound_box
 
             draw_corner(length, matrix, bounds)
+
+      else: return
 
       glColor4f(0.0, 0.0, 0.0, 1.0)
       glLineWidth(1)
