@@ -18,12 +18,12 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # addon info
 bl_info = {
-  'name': 'Selection Box',
+  'name': 'Selection Bounds',
   'author': 'Trentin Frederick (proxe)',
   'version': (0, 0),
   'blender': (2, 69, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
-  'description': 'Display a selection box for the active object.',
+  'description': 'Display bounds of each selected object.',
   # 'wiki_url': '',
   # 'tracker_url': '',
   'category': '3D View'
@@ -31,6 +31,7 @@ bl_info = {
 
 # imports
 import bpy
-import bgl
-from bpy.props import BoolProperty, FloatVectorProperty, IntProperty, EnumProperty, PointerProperty
 from bpy.utils import register_module, unregister_module
+from bpy.props import PointerProperty
+
+from .addon import interface, operator, properties
