@@ -8,22 +8,28 @@ def draw(self, context):
 
   column.label(text='Selection Bounds:')
 
-  column.prop(context.scene.selection_bounds, 'mode', text='')
+  if context.scene.selection_bounds.running:
 
-  if context.scene.selection_bounds.mode != 'NONE':
+    column.prop(context.scene.selection_bounds, 'mode', text='')
 
-    row = column.row(align=True)
+    if context.scene.selection_bounds.mode != 'NONE':
 
-    if context.scene.selection_bounds.use_object_color:
+      row = column.row(align=True)
 
-      row.prop(context.object, 'color', text='')
+      if context.scene.selection_bounds.use_object_color:
 
-    else:
+        row.prop(context.object, 'color', text='')
 
-      row.prop(context.scene.selection_bounds, 'color', text='')
+      else:
 
-    row.prop(context.scene.selection_bounds, 'use_object_color', text='', icon='OBJECT_DATA')
+        row.prop(context.scene.selection_bounds, 'color', text='')
 
-    column.prop(context.scene.selection_bounds, 'width')
+      row.prop(context.scene.selection_bounds, 'use_object_color', text='', icon='OBJECT_DATA')
 
-    column.prop(context.scene.selection_bounds, 'length', slider=True)
+      column.prop(context.scene.selection_bounds, 'width')
+
+      column.prop(context.scene.selection_bounds, 'length', slider=True)
+
+  else:
+
+    column.operator('view3d.selection_bounds', text='Enable')

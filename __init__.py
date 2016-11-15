@@ -18,7 +18,7 @@ bl_info = {
   'name': 'Selection Bounds',
   'author': 'Trentin Frederick (proxe)',
   'version': (0, 3),
-  'blender': (2, 69, 0),
+  'blender': (2, 65, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound indicators around objects.',
   # 'wiki_url': '',
