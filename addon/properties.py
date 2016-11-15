@@ -4,6 +4,12 @@ from bpy.props import BoolProperty, EnumProperty, FloatVectorProperty, IntProper
 
 class selection_bounds(PropertyGroup):
 
+  running = BoolProperty(
+    name = 'Running',
+    description = 'Used internally.',
+    default = False
+  )
+
   mode = EnumProperty(
     name = 'Display Mode',
     description = 'What objects to display bounds around.',

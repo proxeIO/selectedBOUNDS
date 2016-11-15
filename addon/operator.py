@@ -21,6 +21,8 @@ class selection_bounds(Operator):
 
   def invoke(self, context, event):
 
+    context.scene.selection_bounds.running = True
+
     bpy.types.SpaceView3D.draw_handler_add(self.draw_bounds, (self, context), 'WINDOW', 'POST_VIEW')
 
     context.window_manager.modal_handler_add(self)

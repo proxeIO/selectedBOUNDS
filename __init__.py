@@ -17,13 +17,12 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 bl_info = {
   'name': 'Selection Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, 2),
+  'version': (0, 3),
   'blender': (2, 69, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound indicators around objects.',
   # 'wiki_url': '',
   # 'tracker_url': '',
-  'warning': 'Requires Restart',
   'category': '3D View'
 }
 
@@ -33,7 +32,7 @@ from bpy.app.handlers import persistent
 from bpy.utils import register_module, unregister_module
 from bpy.props import PointerProperty
 
-from .addon import interface, operator, properties
+from .addon import interface, operator, preferences, properties
 
 
 @persistent
