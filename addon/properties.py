@@ -1,6 +1,9 @@
 import bpy
+
 from bpy.types import PropertyGroup
 from bpy.props import BoolProperty, EnumProperty, FloatVectorProperty, IntProperty, FloatProperty
+
+from .config import defaults as default
 
 class selection_bounds(PropertyGroup):
 
@@ -18,7 +21,7 @@ class selection_bounds(PropertyGroup):
       ('SELECTED', 'Selected Objects', 'The selected objects.'),
       ('ACTIVE', 'Active Object', 'The active object.'),
     ],
-    default = 'ACTIVE'
+    default = default['mode']
   )
 
   color = FloatVectorProperty(
@@ -28,13 +31,13 @@ class selection_bounds(PropertyGroup):
     size = 4,
     min = 0.0,
     max = 1.0,
-    default = (1.0, 1.0, 1.0, 0.5)
+    default = default['color']
   )
 
   use_object_color = BoolProperty(
     name = 'Use Object Color',
     description = 'Use the object\'s color.',
-    default = False
+    default = default['use_object_color']
   )
 
   width = IntProperty(
@@ -42,7 +45,7 @@ class selection_bounds(PropertyGroup):
     description = 'Width of the lines in pixels.',
     min = 1,
     max = 10,
-    default = 2
+    default = default['width']
   )
 
   length = FloatProperty(
@@ -50,5 +53,5 @@ class selection_bounds(PropertyGroup):
     description = 'Length of the lines as they extend from the cornders.',
     min = 0.1,
     max = 1.0,
-    default = 0.5
+    default = default['length']
   )

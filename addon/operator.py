@@ -1,6 +1,9 @@
 import bpy
+
 from bpy.types import Operator
+
 from bgl import glEnable, GL_BLEND, glColor4f, glLineWidth, glBegin, GL_LINES, glVertex3f, glEnd, glDisable
+
 from mathutils import Vector
 
 class selection_bounds(Operator):
