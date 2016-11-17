@@ -43,7 +43,6 @@ def load_handler(self):
 
   bpy.ops.view3d.selected_bounds('INVOKE_DEFAULT')
 
-bpy.app.handlers.load_post.append(load_handler)
 
 
 def update_settings():
@@ -74,7 +73,15 @@ def register():
     description = 'Storage location for selected bounds settings.'
   )
 
+  bpy.types.WindowManager.running_modal = PointerProperty(
+    type = properties.running_modal,
+    name = 'Running Modal',
+    description = 'Place to store persistent running modal checks.',
+  )
+
   bpy.types.VIEW3D_PT_view3d_display.append(interface.draw)
+  bpy.app.handlers.load_post.append(load_handler)
+
 
 
 def unregister():
@@ -82,5 +89,7 @@ def unregister():
   unregister_module(__name__)
 
   bpy.types.VIEW3D_PT_view3d_display.remove(interface.draw)
+  bpy.app.handlers.load_post.remove(load_handler)
 
   del bpy.types.Scene.selected_bounds
+  del bpy.types.WindowManager.running_modal

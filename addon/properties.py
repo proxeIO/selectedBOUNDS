@@ -57,3 +57,11 @@ class selected_bounds(PropertyGroup):
     subtype = 'PERCENTAGE',
     default = default['length']
   )
+
+class running_modal(PropertyGroup):
+
+  selected_bounds = BoolProperty(
+    name = 'Selected Bounds',
+    description = 'Check for selected bounds modal.',
+    default = False
+  )

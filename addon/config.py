@@ -5,7 +5,7 @@
 #   'use_object_color': False,
 #   'width': 2,
 #   'length': 50,
-#   'scene_independent': False
+#   'scene_independent': False,
 #   'display_preferences': False
 # }
 
@@ -16,6 +16,6 @@ defaults = {
   'use_object_color': False,
   'width': 2,
   'length': 50,
-  'scene_independent': True
+  'scene_independent': True,
   'display_preferences': False
 }

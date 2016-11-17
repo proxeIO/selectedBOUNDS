@@ -24,9 +24,7 @@ class selected_bounds(Operator):
 
   def invoke(self, context, event):
 
-    addon = context.user_preferences.addons[__name__.partition('.')[0]].preferences
-
-    addon.running = True
+    context.window_manager.running_modal.selected_bounds = True
 
     bpy.types.SpaceView3D.draw_handler_add(self.draw_bounds, (self, context), 'WINDOW', 'POST_VIEW')
 

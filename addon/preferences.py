@@ -81,10 +81,10 @@ class selected_bounds(AddonPreferences):
     layout = self.layout
 
     column = layout.column()
-    column.enabled = not self.running
+    column.enabled = not context.window_manager.running_modal.selected_bounds
     column.scale_y = 2
 
-    text = 'Enable' if not self.running else 'Running'
+    text = 'Enable' if not context.window_manager.running_modal.selected_bounds else 'Running'
     column.operator('view3d.selected_bounds', text=text)
 
     column = layout.column()
