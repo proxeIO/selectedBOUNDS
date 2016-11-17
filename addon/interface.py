@@ -25,5 +25,5 @@ def draw(self, context):
     row.prop(context.scene.selection_bounds, 'use_object_color', text='', icon='OBJECT_DATA')
 
     column.prop(context.scene.selection_bounds, 'width')
-
+    
     column.prop(context.scene.selection_bounds, 'length', slider=True)

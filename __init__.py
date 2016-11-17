@@ -58,9 +58,9 @@ def update_settings():
 
         setattr(options, option, getattr(preference, option))
 
-      elif tuple(options.color) == default[color]:
+    elif tuple(options.color) == default[color]:
 
-        options.color = preference.color
+      options.color = preference.color
 
 
 def register():
