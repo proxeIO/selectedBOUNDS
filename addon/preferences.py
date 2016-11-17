@@ -9,7 +9,7 @@ from bpy.utils import unregister_class, register_class
 from . import properties
 from .config import defaults as default
 
-class preferences(AddonPreferences):
+class selected_bounds(AddonPreferences):
 
   bl_idname = __name__.partition('.')[0]
 
@@ -81,10 +81,10 @@ class preferences(AddonPreferences):
     layout = self.layout
 
     column = layout.column()
-    column.enabled = not context.scene.selected_bounds.running
+    column.enabled = not self.running
     column.scale_y = 2
 
-    text = 'Enable' if not context.scene.selected_bounds.running else 'Running'
+    text = 'Enable' if not self.running else 'Running'
     column.operator('view3d.selected_bounds', text=text)
 
     column = layout.column()
