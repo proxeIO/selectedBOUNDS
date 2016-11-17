@@ -1,3 +1,12 @@
+# # proxe defaults
+# defaults = {
+#   'mode': 'ACTIVE',
+#   'color': (0.0, 0.0, 0.0, 0.5),
+#   'use_object_color': False,
+#   'width': 2,
+#   'length': 50,
+#   'scene_independent': False
+# }
 
 # Defaults Settings
 defaults = {
@@ -5,5 +14,6 @@ defaults = {
   'color': (1.0, 1.0, 1.0, 0.5),
   'use_object_color': False,
   'width': 2,
-  'length': 0.5
+  'length': 50,
+  'scene_independent': True
 }

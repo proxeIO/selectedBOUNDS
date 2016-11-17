@@ -1,11 +1,11 @@
 import bpy
 
 from bpy.types import PropertyGroup
-from bpy.props import BoolProperty, EnumProperty, FloatVectorProperty, IntProperty, FloatProperty
+from bpy.props import BoolProperty, EnumProperty, FloatVectorProperty, IntProperty
 
 from .config import defaults as default
 
-class selection_bounds(PropertyGroup):
+class selected_bounds(PropertyGroup):
 
   running = BoolProperty(
     name = 'Running',
@@ -17,7 +17,7 @@ class selection_bounds(PropertyGroup):
     name = 'Display Mode',
     description = 'What objects to display bounds around.',
     items = [
-      ('NONE', 'None', 'Disable selection bounds.'),
+      ('NONE', 'None', 'Disable selected bounds.'),
       ('SELECTED', 'Selected Objects', 'The selected objects.'),
       ('ACTIVE', 'Active Object', 'The active object.'),
     ],
@@ -42,16 +42,18 @@ class selection_bounds(PropertyGroup):
 
   width = IntProperty(
     name = 'Width',
-    description = 'Width of the lines in pixels.',
+    description = 'Width of the lines.',
     min = 1,
-    max = 10,
+    max = 20,
+    subtype = 'PIXEL',
     default = default['width']
   )
 
-  length = FloatProperty(
+  length = IntProperty(
     name = 'Length',
-    description = 'Length of the lines as they extend from the cornders.',
-    min = 0.1,
-    max = 1.0,
+    description = 'Length of the lines as they extend from the corners.',
+    min = 10,
+    max = 100,
+    subtype = 'PERCENTAGE',
     default = default['length']
   )

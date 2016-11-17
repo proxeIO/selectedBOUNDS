@@ -15,12 +15,12 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # addon info
 bl_info = {
-  'name': 'Selection Bounds',
+  'name': 'Selected Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, 4),
+  'version': (0, 5),
   'blender': (2, 65, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
-  'description': 'Display bound indicators around objects.',
+  'description': 'Display bound box indicators around selected objects.',
   # 'wiki_url': '',
   # 'tracker_url': '',
   'category': '3D View'
@@ -41,7 +41,7 @@ def load_handler(self):
 
   update_settings()
 
-  bpy.ops.view3d.selection_bounds('INVOKE_DEFAULT')
+  bpy.ops.view3d.selected_bounds('INVOKE_DEFAULT')
 
 bpy.app.handlers.load_post.append(load_handler)
 
@@ -49,28 +49,29 @@ bpy.app.handlers.load_post.append(load_handler)
 def update_settings():
 
   preference = bpy.context.user_preferences.addons[__name__].preferences
-  options = bpy.context.scene.selection_bounds
+  options = bpy.context.scene.selected_bounds
 
   for option in default:
 
-    if option != 'color':
-      if getattr(options, option) == default[option]:
+    if option != 'scene_independent':
+      if option != 'color':
+        if getattr(options, option) == default[option]:
 
-        setattr(options, option, getattr(preference, option))
+          setattr(options, option, getattr(preference, option))
 
-    elif tuple(options.color) == default[color]:
+      elif options.color[:] == default[option]:
 
-      options.color = preference.color
+        options.color = preference.color
 
 
 def register():
 
   register_module(__name__)
 
-  bpy.types.Scene.selection_bounds = PointerProperty(
-    type = properties.selection_bounds,
-    name = 'Selection Bounds',
-    description = 'Storage location for selection bounds settings.'
+  bpy.types.Scene.selected_bounds = PointerProperty(
+    type = properties.selected_bounds,
+    name = 'Selected Bounds',
+    description = 'Storage location for selected bounds settings.'
   )
 
   bpy.types.VIEW3D_PT_view3d_display.append(interface.draw)
@@ -82,4 +83,4 @@ def unregister():
 
   bpy.types.VIEW3D_PT_view3d_display.remove(interface.draw)
 
-  del bpy.types.Scene.selection_bounds
+  del bpy.types.Scene.selected_bounds

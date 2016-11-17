@@ -6,16 +6,16 @@ from bgl import glEnable, GL_BLEND, glColor4f, glLineWidth, glBegin, GL_LINES, g
 
 from mathutils import Vector
 
-class selection_bounds(Operator):
-  bl_idname = 'view3d.selection_bounds'
-  bl_label = 'Selection Bounds'
+class selected_bounds(Operator):
+  bl_idname = 'view3d.selected_bounds'
+  bl_label = 'Selected Bounds'
   bl_description = 'Display bound indicators around objects. (Persistent)'
   bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
 
 
   def modal(self, context, event):
 
-    if context.area:
+    if context.area and context.area.type == 'VIEW_3D':
 
       context.area.tag_redraw()
 
@@ -24,7 +24,9 @@ class selection_bounds(Operator):
 
   def invoke(self, context, event):
 
-    context.scene.selection_bounds.running = True
+    addon = context.user_preferences.addons[__name__.partition('.')[0]].preferences
+
+    addon.running = True
 
     bpy.types.SpaceView3D.draw_handler_add(self.draw_bounds, (self, context), 'WINDOW', 'POST_VIEW')
 
@@ -36,11 +38,13 @@ class selection_bounds(Operator):
   @staticmethod
   def draw_bounds(self, context):
 
+    try: addon = context.user_preferences.addons[__name__.partition('.')[0]]
+    except: return
+
     if context.object:
 
-      try: option = context.scene.selection_bounds
-      except: return
-      length = option.length*0.5
+      option = context.scene.selected_bounds if addon.preferences.scene_independent else addon.preferences
+      length = (float(option.length) * 0.01) * 0.5
 
       glEnable(GL_BLEND)
       glLineWidth(option.width)
@@ -73,13 +77,9 @@ class selection_bounds(Operator):
 
       else: return
 
-      glColor4f(0.0, 0.0, 0.0, 1.0)
-      glLineWidth(1)
       glDisable(GL_BLEND)
 
-    else:
-
-      return
+    else: return
 
 
 def draw_corner(length, matrix, bounds):
