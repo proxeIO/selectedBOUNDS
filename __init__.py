@@ -53,7 +53,7 @@ def update_settings():
 
   for option in default:
 
-    if option != 'scene_independent':
+    if option not in {'scene_independent', 'display_preferences'}:
       if option != 'color':
         if getattr(options, option) == default[option]:
 
