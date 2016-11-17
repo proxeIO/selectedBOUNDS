@@ -67,13 +67,13 @@ class selected_bounds(AddonPreferences):
   scene_independent = BoolProperty(
     name = 'Independent Scene Options',
     description = 'Use independent scene options in the viewport rather then using these preferences.',
-    default = True
+    default = default['scene_independent']
   )
 
   display_preferences = BoolProperty(
     name = 'Display Preferences',
     description = 'Display these preferences in the 3D view\'s display panel instead.',
-    default = False
+    default = default['display_preferences']
   )
 
   def draw(self, context):
@@ -172,7 +172,8 @@ class save(Operator):
       'use_object_color': preference.use_object_color,
       'width': preference.width,
       'length': preference.length,
-      'scene_independent': preference.scene_independent
+      'scene_independent': preference.scene_independent,
+      'display_preferences': preference.display_preferences,
     }
 
     filepath = os.path.abspath(os.path.join(os.path.dirname(__file__), 'config.py'))

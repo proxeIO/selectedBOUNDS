@@ -6,6 +6,7 @@
 #   'width': 2,
 #   'length': 50,
 #   'scene_independent': False
+#   'display_preferences': False
 # }
 
 # Defaults Settings
@@ -16,4 +17,5 @@ defaults = {
   'width': 2,
   'length': 50,
   'scene_independent': True
+  'display_preferences': False
 }
