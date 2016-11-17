@@ -70,6 +70,12 @@ class preferences(AddonPreferences):
     default = True
   )
 
+  display_preferences = BoolProperty(
+    name = 'Display Preferences',
+    description = 'Display these preferences in the 3D view\'s display panel instead.',
+    default = False
+  )
+
   def draw(self, context):
 
     layout = self.layout
@@ -106,6 +112,10 @@ class preferences(AddonPreferences):
 
     row = box.row()
     row.prop(self, 'scene_independent')
+
+    sub = row.row()
+    sub.enabled = not self.scene_independent
+    sub.prop(self, 'display_preferences')
 
     row = box.row()
     row.alignment = 'RIGHT'
