@@ -9,7 +9,7 @@ from mathutils import Vector
 class selection_bounds(Operator):
   bl_idname = 'view3d.selection_bounds'
   bl_label = 'Selection Bounds'
-  bl_description = 'Display bound indicators around objects.'
+  bl_description = 'Display bound indicators around objects. (Persistent)'
   bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
 
 
