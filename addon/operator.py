@@ -10,7 +10,7 @@ class selected_bounds(Operator):
   bl_idname = 'view3d.selected_bounds'
   bl_label = 'Selected Bounds'
   bl_description = 'Display bound indicators around objects. (Persistent)'
-  bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+  bl_options = {'INTERNAL'}
 
 
   def modal(self, context, event):
@@ -39,13 +39,14 @@ class selected_bounds(Operator):
     try: addon = context.user_preferences.addons[__name__.partition('.')[0]]
     except: return
 
-    if context.object:
+    option = context.scene.selected_bounds if addon.preferences.scene_independent else addon.preferences
 
-      option = context.scene.selected_bounds if addon.preferences.scene_independent else addon.preferences
-      length = (float(option.length) * 0.01) * 0.5
+    if context.object and option.mode != 'NONE' and context.object.mode in {'OBJECT', 'EDIT'} and context.space_data.viewport_shade in {'SOLID', 'WIREFRAME'} and not context.space_data.show_only_render:
 
       glEnable(GL_BLEND)
       glLineWidth(option.width)
+
+      length = (float(option.length) * 0.01) * 0.5
 
       if option.mode == 'ACTIVE':
 
@@ -57,7 +58,7 @@ class selected_bounds(Operator):
           matrix = context.object.matrix_world
           bounds = context.object.bound_box
 
-          draw_corner(length, matrix, bounds)
+          draw_corners(length, matrix, bounds)
 
       elif option.mode == 'SELECTED':
 
@@ -71,16 +72,14 @@ class selected_bounds(Operator):
             matrix = object.matrix_world
             bounds = object.bound_box
 
-            draw_corner(length, matrix, bounds)
-
-      else: return
+            draw_corners(length, matrix, bounds)
 
       glDisable(GL_BLEND)
 
     else: return
 
 
-def draw_corner(length, matrix, bounds):
+def draw_corners(length, matrix, bounds):
 
   for index in range(0, 8):
 

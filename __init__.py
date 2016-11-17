@@ -17,7 +17,7 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 bl_info = {
   'name': 'Selected Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, 5),
+  'version': (0, 6),
   'blender': (2, 78, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound box indicators around selected objects.',
@@ -44,23 +44,27 @@ def load_handler(self):
   bpy.ops.view3d.selected_bounds('INVOKE_DEFAULT')
 
 
-
 def update_settings():
 
   preference = bpy.context.user_preferences.addons[__name__].preferences
-  options = bpy.context.scene.selected_bounds
 
-  for option in default:
+  if not preference.scene_independent:
 
-    if option not in {'scene_independent', 'display_preferences'}:
-      if option != 'color':
-        if getattr(options, option) == default[option]:
+    for scene in bpy.data.scenes:
 
-          setattr(options, option, getattr(preference, option))
+      options = scene.selected_bounds
 
-      elif options.color[:] == default[option]:
+      for option in default:
 
-        options.color = preference.color
+        if option not in {'scene_independent', 'display_preferences'}:
+          if option != 'color':
+            if getattr(options, option) == default[option]:
+
+              setattr(options, option, getattr(preference, option))
+
+          elif options.color[:] == default[option]:
+
+            options.color = preference.color
 
 
 def register():

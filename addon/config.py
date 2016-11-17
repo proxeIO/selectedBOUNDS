@@ -1,6 +1,6 @@
 # # proxe defaults
 # defaults = {
-#   'mode': 'ACTIVE',
+#   'mode': 'SELECTED',
 #   'color': (0.0, 0.0, 0.0, 0.5),
 #   'use_object_color': False,
 #   'width': 2,

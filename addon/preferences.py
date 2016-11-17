@@ -157,7 +157,7 @@ class update(Operator):
 class save(Operator):
   bl_idname = 'wm.save_selected_bound_defaults'
   bl_label = 'Save'
-  bl_description = 'Permanently store the current settings as the default values. (Requires Restart)'
+  bl_description = 'Permanently store the current settings as the default values, for use with reset to default value option (Right Click Menu). (Requires Restart)'
   bl_options = {'INTERNAL'}
 
 
