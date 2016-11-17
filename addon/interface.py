@@ -2,7 +2,9 @@ def draw(self, context):
 
   layout = self.layout
 
-  addon = context.user_preferences.addons[__name__.partition('.')[0]].preferences
+  addon = context.user_preferences.addons[__name__.partition('.')[0]]
+
+  option = context.scene.selected_bounds if addon.preferences.scene_independent else addon.preferences
 
   column = layout.column(align=True)
 
@@ -10,28 +12,23 @@ def draw(self, context):
 
   column.label(text='Selected Bounds:')
 
-  if addon.scene_independent:
+  column.prop(option, 'mode', text='')
 
-    column.prop(context.scene.selected_bounds, 'mode', text='')
+  if addon.preferences.scene_independent or addon.preferences.display_preferences:
+    if option.mode != 'NONE':
 
-  else:
+      row = column.row(align=True)
 
-    column.prop(addon, 'mode', text='')
+      if context.object and option.use_object_color:
 
-  if addon.scene_independent and context.scene.selected_bounds.mode != 'NONE':
+        row.prop(context.object, 'color', text='')
 
-    row = column.row(align=True)
+      else:
 
-    if context.object and context.scene.selected_bounds.use_object_color:
+        row.prop(option, 'color', text='')
 
-      row.prop(context.object, 'color', text='')
+      row.prop(option, 'use_object_color', text='', icon='OBJECT_DATA')
 
-    else:
+      column.prop(option, 'width')
 
-      row.prop(context.scene.selected_bounds, 'color', text='')
-
-    row.prop(context.scene.selected_bounds, 'use_object_color', text='', icon='OBJECT_DATA')
-
-    column.prop(context.scene.selected_bounds, 'width')
-
-    column.prop(context.scene.selected_bounds, 'length', slider=True)
+      column.prop(option, 'length', slider=True)
