@@ -3,11 +3,9 @@ import os
 import bpy
 
 from bpy.types import AddonPreferences, Operator
-from bpy.props import EnumProperty, FloatVectorProperty, BoolProperty, IntProperty, PointerProperty
-from bpy.utils import unregister_class, register_class
-
-from . import properties
+from bpy.props import EnumProperty, FloatVectorProperty, BoolProperty, IntProperty
 from .config import defaults as default
+
 
 class selected_bounds(AddonPreferences):
 
@@ -75,6 +73,7 @@ class selected_bounds(AddonPreferences):
     description = 'Display these preferences in the 3D view\'s display panel instead.',
     default = default['display_preferences']
   )
+
 
   def draw(self, context):
 
