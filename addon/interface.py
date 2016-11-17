@@ -12,23 +12,29 @@ def draw(self, context):
 
   column.label(text='Selected Bounds:')
 
-  column.prop(option, 'mode', text='')
+  if not context.window_manager.running_modal.selected_bounds:
 
-  if addon.preferences.scene_independent or addon.preferences.display_preferences:
-    if option.mode != 'NONE':
+    column.operator('view3d.selected_bounds', text='Enable')
 
-      row = column.row(align=True)
+  else:
 
-      if context.object and option.use_object_color:
+    column.prop(option, 'mode', text='')
 
-        row.prop(context.object, 'color', text='')
+    if addon.preferences.scene_independent or addon.preferences.display_preferences:
+      if option.mode != 'NONE':
 
-      else:
+        row = column.row(align=True)
 
-        row.prop(option, 'color', text='')
+        if context.object and option.use_object_color:
 
-      row.prop(option, 'use_object_color', text='', icon='OBJECT_DATA')
+          row.prop(context.object, 'color', text='')
 
-      column.prop(option, 'width')
+        else:
 
-      column.prop(option, 'length', slider=True)
+          row.prop(option, 'color', text='')
+
+        row.prop(option, 'use_object_color', text='', icon='OBJECT_DATA')
+
+        column.prop(option, 'width')
+
+        column.prop(option, 'length', slider=True)
