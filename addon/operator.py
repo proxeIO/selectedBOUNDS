@@ -8,36 +8,26 @@ from mathutils import Vector
 
 class selected_bounds(Operator):
   bl_idname = 'view3d.selected_bounds'
-  bl_label = 'Selected Bounds'
-  bl_description = 'Display bound indicators around objects. (Persistent)'
+  bl_label = 'Initialize Bounds'
+  bl_description = 'Initialize selected bounds drawing. (Persistent)'
   bl_options = {'INTERNAL'}
 
 
-  def modal(self, context, event):
+  def execute(self, context):
 
-    if context.area and context.area.type == 'VIEW_3D':
+    context.window_manager.is_selected_bounds_drawn = True
 
-      context.area.tag_redraw()
+    bpy.types.SpaceView3D.draw_handler_add(draw_bounds, (self, context), 'WINDOW', 'POST_VIEW')
 
-    return {'PASS_THROUGH'}
-
-
-  def invoke(self, context, event):
-
-    context.window_manager.running_modal.selected_bounds = True
-
-    bpy.types.SpaceView3D.draw_handler_add(self.draw_bounds, (self, context), 'WINDOW', 'POST_VIEW')
-
-    context.window_manager.modal_handler_add(self)
-
-    return {'RUNNING_MODAL'}
+    return {'FINISHED'}
 
 
-  @staticmethod
-  def draw_bounds(self, context):
+def draw_bounds(self, context):
 
-    try: addon = context.user_preferences.addons[__name__.partition('.')[0]]
-    except: return
+  try: addon = context.user_preferences.addons[__name__.partition('.')[0]]
+  except: return
+
+  if context.window_manager.selected_bounds:
 
     option = context.scene.selected_bounds if addon.preferences.scene_independent else addon.preferences
 
@@ -46,7 +36,7 @@ class selected_bounds(Operator):
       glEnable(GL_BLEND)
       glLineWidth(option.width)
 
-      length = (float(option.length) * 0.01) * 0.5
+      length = float(option.length) * 0.01
 
       if option.mode == 'ACTIVE':
 
@@ -77,6 +67,8 @@ class selected_bounds(Operator):
       glDisable(GL_BLEND)
 
     else: return
+
+  else: return
 
 
 def draw_corners(length, matrix, bounds):

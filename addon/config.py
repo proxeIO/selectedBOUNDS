@@ -1,21 +1,25 @@
 # proxe defaults
 # defaults = {
+#   'selected_bounds': True,
 #   'mode': 'SELECTED',
-#   'color': (0.0, 0.0, 0.0, 0.33),
+#   'color': (0.0, 0.0, 0.0, 0.5),
 #   'use_object_color': False,
-#   'width': 2,
-#   'length': 50,
+#   'width': 1,
+#   'length': 25,
 #   'scene_independent': False,
-#   'display_preferences': False
+#   'display_preferences': False,
+#   'mode_only': False
 # }
 
 # Defaults Settings
 defaults = {
+  'selected_bounds': True,
   'mode': 'ACTIVE',
-  'color': (1.0, 1.0, 1.0, 0.5),
+  'color': (1.0, 1.0, 1.0, 1.0),
   'use_object_color': False,
   'width': 2,
-  'length': 50,
-  'scene_independent': True,
-  'display_preferences': False
+  'length': 25,
+  'scene_independent': False,
+  'display_preferences': False,
+  'mode_only': False
 }

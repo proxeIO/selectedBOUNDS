@@ -6,35 +6,44 @@ def draw(self, context):
 
   option = context.scene.selected_bounds if addon.preferences.scene_independent else addon.preferences
 
-  column = layout.column(align=True)
+  column = layout.column()
 
   column.separator()
 
-  column.label(text='Selected Bounds:')
+  if not context.window_manager.is_selected_bounds_drawn:
 
-  if not context.window_manager.running_modal.selected_bounds:
-
-    column.operator('view3d.selected_bounds', text='Enable')
+    column.operator('view3d.selected_bounds')
 
   else:
 
-    column.prop(option, 'mode', text='')
+    column.prop(context.window_manager, 'selected_bounds')
 
-    if addon.preferences.scene_independent or addon.preferences.display_preferences:
-      if option.mode != 'NONE':
+    if context.window_manager.selected_bounds:
 
-        row = column.row(align=True)
+      if addon.preferences.scene_independent or addon.preferences.display_preferences:
 
-        if context.object and option.use_object_color:
+        column = layout.column(align=True)
 
-          row.prop(context.object, 'color', text='')
+        if not addon.preferences.scene_independent and addon.preferences.display_preferences and addon.preferences.mode_only:
+
+          column.prop(option, 'mode', text='')
 
         else:
 
-          row.prop(option, 'color', text='')
+          column.prop(option, 'mode', text='')
 
-        row.prop(option, 'use_object_color', text='', icon='OBJECT_DATA')
+          row = column.row(align=True)
 
-        column.prop(option, 'width')
+          if context.object and option.use_object_color:
 
-        column.prop(option, 'length', slider=True)
+            row.prop(context.object, 'color', text='')
+
+          else:
+
+            row.prop(option, 'color', text='')
+
+          row.prop(option, 'use_object_color', text='', icon='OBJECT_DATA')
+
+          column.prop(option, 'width')
+
+          column.prop(option, 'length', slider=True)

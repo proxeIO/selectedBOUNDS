@@ -1,23 +1,16 @@
 import bpy
 
 from bpy.types import PropertyGroup
-from bpy.props import BoolProperty, EnumProperty, FloatVectorProperty, IntProperty
+from bpy.props import EnumProperty, FloatVectorProperty, BoolProperty, IntProperty
 
 from .config import defaults as default
 
 class selected_bounds(PropertyGroup):
 
-  running = BoolProperty(
-    name = 'Running',
-    description = 'Used internally.',
-    default = False
-  )
-
   mode = EnumProperty(
     name = 'Display Mode',
-    description = 'What objects to display bounds around.',
+    description = 'What objects to display bound indicators around.',
     items = [
-      ('NONE', 'None', 'Disable selected bounds.'),
       ('SELECTED', 'Selected Objects', 'The selected objects.'),
       ('ACTIVE', 'Active Object', 'The active object.'),
     ],
@@ -26,7 +19,7 @@ class selected_bounds(PropertyGroup):
 
   color = FloatVectorProperty(
     name = 'Color',
-    description = 'Color of the bounds.',
+    description = 'Color of the bound indicators.',
     subtype = 'COLOR',
     size = 4,
     min = 0.0,
@@ -42,26 +35,19 @@ class selected_bounds(PropertyGroup):
 
   width = IntProperty(
     name = 'Width',
-    description = 'Width of the lines.',
+    description = 'Width of the bound indicator lines in pixels.',
     min = 1,
-    max = 20,
+    max = 8,
     subtype = 'PIXEL',
     default = default['width']
   )
 
   length = IntProperty(
     name = 'Length',
-    description = 'Length of the lines as they extend from the corners. (100% makes a complete box)',
-    min = 10,
-    max = 100,
+    description = 'Length of the bound indicator lines as they extend from the corners. (50% makes a complete box)',
+    min = 1,
+    soft_min = 10,
+    max = 50,
     subtype = 'PERCENTAGE',
     default = default['length']
-  )
-
-class running_modal(PropertyGroup):
-
-  selected_bounds = BoolProperty(
-    name = 'Selected Bounds',
-    description = 'Check for selected bounds modal.',
-    default = False
   )

@@ -17,7 +17,7 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 bl_info = {
   'name': 'Selected Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, 6),
+  'version': (0, '6a'),
   'blender': (2, 78, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound box indicators around selected objects.',
@@ -30,7 +30,7 @@ bl_info = {
 import bpy
 from bpy.app.handlers import persistent
 from bpy.utils import register_module, unregister_module
-from bpy.props import PointerProperty
+from bpy.props import PointerProperty, BoolProperty
 
 from .addon import interface, operator, preferences, properties
 from .addon.config import defaults as default
@@ -56,7 +56,7 @@ def update_settings():
 
       for option in default:
 
-        if option not in {'scene_independent', 'display_preferences'}:
+        if option not in {'selected_bounds', 'scene_independent', 'display_preferences', 'mode_only'}:
           if option != 'color':
             if getattr(options, option) == default[option]:
 
@@ -77,15 +77,20 @@ def register():
     description = 'Storage location for selected bounds settings.'
   )
 
-  bpy.types.WindowManager.running_modal = PointerProperty(
-    type = properties.running_modal,
-    name = 'Running Modal',
-    description = 'Place to store persistent running modal checks.',
+  bpy.types.WindowManager.is_selected_bounds_drawn = BoolProperty(
+    name = 'Selected Bounds Checker',
+    description = 'Used by the addon selected bounds to prevent multiple draw handlers from being created.',
+    default = False
+  )
+
+  bpy.types.WindowManager.selected_bounds = BoolProperty(
+    name = 'Selected Bounds',
+    description = 'Display bound indicators around objects.',
+    default = default['selected_bounds']
   )
 
   bpy.types.VIEW3D_PT_view3d_display.append(interface.draw)
   bpy.app.handlers.load_post.append(load_handler)
-
 
 
 def unregister():
@@ -96,4 +101,4 @@ def unregister():
   bpy.app.handlers.load_post.remove(load_handler)
 
   del bpy.types.Scene.selected_bounds
-  del bpy.types.WindowManager.running_modal
+  del bpy.types.WindowManager.selected_bounds
