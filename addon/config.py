@@ -7,7 +7,7 @@
 #   'length': 50,
 #   'scene_independent': False,
 #   'display_preferences': False
-}
+# }
 
 # Defaults Settings
 defaults = {
