@@ -69,6 +69,9 @@ def draw_bounds(self, context):
 
             draw_corners(length, matrix, bounds)
 
+      glDisable(GL_DEPTH_TEST)
+      glDisable(GL_BLEND)
+
     else: return
 
   else: return
