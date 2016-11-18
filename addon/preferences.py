@@ -64,7 +64,7 @@ class selected_bounds(AddonPreferences):
 
   scene_independent = BoolProperty(
     name = 'Independent Scene Options',
-    description = 'Use independent scene options in the viewport rather then using these preferences.',
+    description = 'Use independent scene options in the viewport rather then using these preferences directly.',
     default = default['scene_independent']
   )
 
