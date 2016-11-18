@@ -2,14 +2,14 @@ import bpy
 
 from bpy.types import Operator
 
-from bgl import glEnable, GL_BLEND, glColor4f, glLineWidth, glBegin, GL_LINES, glVertex3f, glEnd, glDisable
+from bgl import glEnable, GL_BLEND, GL_DEPTH_TEST, glDepthFunc, GL_LESS, glColor4f, glLineWidth, glBegin, GL_LINES, glVertex3f, glEnd, glDisable
 
 from mathutils import Vector
 
 class selected_bounds(Operator):
   bl_idname = 'view3d.selected_bounds'
   bl_label = 'Initialize Bounds'
-  bl_description = 'Initialize selected bounds drawing. (Persistent)'
+  bl_description = 'Initialize bound indicator drawing. (Persistent)'
   bl_options = {'INTERNAL'}
 
 
@@ -17,7 +17,7 @@ class selected_bounds(Operator):
 
     context.window_manager.is_selected_bounds_drawn = True
 
-    bpy.types.SpaceView3D.draw_handler_add(draw_bounds, (self, context), 'WINDOW', 'POST_VIEW')
+    bpy.types.SpaceView3D.draw_handler_add(draw_bounds, (self, context), 'WINDOW', 'PRE_VIEW')
 
     return {'FINISHED'}
 
@@ -34,6 +34,10 @@ def draw_bounds(self, context):
     if context.object and option.mode != 'NONE' and context.object.mode in {'OBJECT', 'EDIT'} and context.space_data.viewport_shade in {'SOLID', 'WIREFRAME'} and not context.space_data.show_only_render:
 
       glEnable(GL_BLEND)
+      glEnable(GL_DEPTH_TEST)
+
+      glDepthFunc(GL_LESS)
+
       glLineWidth(option.width)
 
       length = float(option.length) * 0.01
@@ -41,6 +45,7 @@ def draw_bounds(self, context):
       if option.mode == 'ACTIVE':
 
         if context.object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'LATTICE'}:
+
 
           color = option.color if not option.use_object_color else context.object.color
           glColor4f(color[0], color[1], color[2], color[3])
@@ -63,8 +68,6 @@ def draw_bounds(self, context):
             bounds = object.bound_box
 
             draw_corners(length, matrix, bounds)
-
-      glDisable(GL_BLEND)
 
     else: return
 

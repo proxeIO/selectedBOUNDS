@@ -1,7 +1,7 @@
 # proxe defaults
 # defaults = {
 #   'selected_bounds': True,
-#   'mode': 'SELECTED',
+#   'mode': 'ACTIVE',
 #   'color': (0.0, 0.0, 0.0, 0.5),
 #   'use_object_color': False,
 #   'width': 1,
@@ -20,6 +20,6 @@ defaults = {
   'width': 2,
   'length': 25,
   'scene_independent': False,
-  'display_preferences': False,
+  'display_preferences': True,
   'mode_only': False
 }

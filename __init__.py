@@ -17,7 +17,7 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 bl_info = {
   'name': 'Selected Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, '6a'),
+  'version': (0, 7),
   'blender': (2, 78, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound box indicators around selected objects.',
@@ -39,32 +39,32 @@ from .addon.config import defaults as default
 @persistent
 def load_handler(self):
 
-  update_settings()
+  if bpy.context.user_preferences.addons[__name__].preferences.scene_independent:
 
-  bpy.ops.view3d.selected_bounds('INVOKE_DEFAULT')
+    update_settings()
+
+  bpy.ops.view3d.selected_bounds('EXEC_DEFAULT')
 
 
 def update_settings():
 
   preference = bpy.context.user_preferences.addons[__name__].preferences
 
-  if not preference.scene_independent:
+  for scene in bpy.data.scenes:
 
-    for scene in bpy.data.scenes:
+    options = scene.selected_bounds
 
-      options = scene.selected_bounds
+    for option in default:
 
-      for option in default:
+      if option not in {'selected_bounds', 'scene_independent', 'display_preferences', 'mode_only'}:
+        if option != 'color':
+          if getattr(options, option) == default[option]:
 
-        if option not in {'selected_bounds', 'scene_independent', 'display_preferences', 'mode_only'}:
-          if option != 'color':
-            if getattr(options, option) == default[option]:
+            setattr(options, option, getattr(preference, option))
 
-              setattr(options, option, getattr(preference, option))
+        elif options.color[:] == default[option]:
 
-          elif options.color[:] == default[option]:
-
-            options.color = preference.color
+          options.color = preference.color
 
 
 def register():
@@ -101,4 +101,5 @@ def unregister():
   bpy.app.handlers.load_post.remove(load_handler)
 
   del bpy.types.Scene.selected_bounds
+  del bpy.types.WindowManager.is_selected_bounds_drawn
   del bpy.types.WindowManager.selected_bounds
