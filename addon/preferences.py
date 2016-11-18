@@ -54,7 +54,7 @@ class selected_bounds(AddonPreferences):
 
   length = IntProperty(
     name = 'Length',
-    description = 'Length of the bound indicator lines as they extend from the corners. (50% makes a complete box)',
+    description = 'Length of the bound indicator lines as they extend toward the corners. (50% makes a complete box)',
     min = 1,
     soft_min = 10,
     max = 50,
