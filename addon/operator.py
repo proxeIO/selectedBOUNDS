@@ -2,7 +2,7 @@ import bpy
 
 from bpy.types import Operator
 
-from bgl import glEnable, GL_BLEND, GL_DEPTH_TEST, glDepthFunc, GL_LESS, glColor4f, glLineWidth, glBegin, GL_LINES, glVertex3f, glEnd, glDisable
+from bgl import glEnable, GL_BLEND, GL_DEPTH_TEST, glColor4f, glLineWidth, glBegin, GL_LINES, glVertex3f, glEnd, glDisable
 
 from mathutils import Vector
 
@@ -21,7 +21,6 @@ class selected_bounds(Operator):
 
     return {'FINISHED'}
 
-
 def draw_bounds(self, context):
 
   try: addon = context.user_preferences.addons[__name__.partition('.')[0]]
@@ -35,8 +34,6 @@ def draw_bounds(self, context):
 
       glEnable(GL_BLEND)
       glEnable(GL_DEPTH_TEST)
-
-      glDepthFunc(GL_LESS)
 
       glLineWidth(option.width)
 
@@ -75,7 +72,6 @@ def draw_bounds(self, context):
     else: return
 
   else: return
-
 
 def draw_corners(length, matrix, bounds):
 

@@ -17,7 +17,7 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 bl_info = {
   'name': 'Selected Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, 7),
+  'version': (0, '7a'),
   'blender': (2, 78, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound box indicators around selected objects.',
