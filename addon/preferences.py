@@ -55,7 +55,7 @@ class selected_bounds(AddonPreferences):
 
   length = IntProperty(
     name = 'Length',
-    description = 'Length of the lines as they extend from the corners.',
+    description = 'Length of the lines as they extend from the corners. (100% makes a complete box)',
     min = 10,
     max = 100,
     subtype = 'PERCENTAGE',
@@ -157,7 +157,7 @@ class update(Operator):
 class save(Operator):
   bl_idname = 'wm.save_selected_bound_defaults'
   bl_label = 'Save'
-  bl_description = 'Permanently store the current settings as the default values, for use with reset to default value option (Right Click Menu). (Requires Restart)'
+  bl_description = 'Permanently store the current settings as the default values, for use with reset to default value option. (Right Click Menu) (Requires Restart)'
   bl_options = {'INTERNAL'}
 
 

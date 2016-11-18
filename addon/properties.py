@@ -51,7 +51,7 @@ class selected_bounds(PropertyGroup):
 
   length = IntProperty(
     name = 'Length',
-    description = 'Length of the lines as they extend from the corners.',
+    description = 'Length of the lines as they extend from the corners. (100% makes a complete box)',
     min = 10,
     max = 100,
     subtype = 'PERCENTAGE',
