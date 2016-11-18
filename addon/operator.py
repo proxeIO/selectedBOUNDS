@@ -43,7 +43,6 @@ def draw_bounds(self, context):
 
         if context.object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'LATTICE'}:
 
-
           color = option.color if not option.use_object_color else context.object.color
           glColor4f(color[0], color[1], color[2], color[3])
 
