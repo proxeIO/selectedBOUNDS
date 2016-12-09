@@ -8,8 +8,6 @@ def draw(self, context):
 
   column = layout.column()
 
-  column.separator()
-
   if not context.window_manager.is_selected_bounds_drawn:
 
     column.operator('view3d.selected_bounds')

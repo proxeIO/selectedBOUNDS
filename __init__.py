@@ -20,7 +20,7 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 bl_info = {
   'name': 'Selected Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, '7a', 46),
+  'version': (0, '7a', 47),
   'blender': (2, 78, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound box indicators around selected objects.',
@@ -92,7 +92,7 @@ def register():
     default = default['selected_bounds']
   )
 
-  bpy.types.VIEW3D_PT_view3d_display.append(interface.draw)
+  bpy.types.VIEW3D_PT_view3d_display.prepend(interface.draw)
   bpy.app.handlers.load_post.append(load_handler)
 
 
