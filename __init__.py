@@ -1,8 +1,4 @@
-
 '''
-Selected Bounds Addon
-Copyright (c) 2016 Trentin Frederick (proxe) All Rights Reserved.
-
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
 Foundation, either version 3 of the License, or (at your option) any later
@@ -20,7 +16,7 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 bl_info = {
   'name': 'Selected Bounds',
   'author': 'Trentin Frederick (proxe)',
-  'version': (0, '7a', 47),
+  'version': (0, '7a', 48),
   'blender': (2, 78, 0),
   'location': '3D View \N{Rightwards Arrow} Properties Shelf \N{Rightwards Arrow} Display',
   'description': 'Display bound box indicators around selected objects.',

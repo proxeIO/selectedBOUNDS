@@ -2,7 +2,7 @@
 # defaults = {
 #   'selected_bounds': True,
 #   'mode': 'ACTIVE',
-#   'color': (0.0, 0.0, 0.0, 0.50),
+#   'color': (0.0, 0.0, 0.0, 0.5),
 #   'use_object_color': False,
 #   'width': 1,
 #   'length': 25,
