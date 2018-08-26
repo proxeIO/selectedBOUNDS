@@ -24,53 +24,50 @@ class selected_bounds(Operator):
 def draw_bounds(self, context):
 
     try: addon = context.user_preferences.addons[__name__.partition('.')[0]]
-    except: return
+    except: pass
 
     if context.window_manager.selected_bounds:
 
-        option = context.scene.selected_bounds if addon.preferences.scene_independent else addon.preferences
+        if context.active_object and not context.active_object.hide:
+            option = context.scene.selected_bounds if addon.preferences.scene_independent else addon.preferences
 
-        if context.object and option.mode != 'NONE' and context.object.mode in {'OBJECT', 'EDIT'} and context.space_data.viewport_shade in {'SOLID', 'WIREFRAME'} and not context.space_data.show_only_render:
+            if context.object and option.mode != 'NONE' and context.object.mode in {'OBJECT', 'EDIT'} and context.space_data.viewport_shade in {'SOLID', 'WIREFRAME'} and not context.space_data.show_only_render:
 
-            glEnable(GL_BLEND)
-            glEnable(GL_DEPTH_TEST)
+                glEnable(GL_BLEND)
+                glEnable(GL_DEPTH_TEST)
 
-            glLineWidth(option.width)
+                glLineWidth(option.width)
 
-            length = float(option.length) * 0.01
+                length = float(option.length) * 0.01
 
-            if option.mode == 'ACTIVE':
+                if option.mode == 'ACTIVE':
 
-                if context.object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'LATTICE'}:
+                    if context.object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'LATTICE'}:
 
-                    color = option.color if not option.use_object_color else context.object.color
-                    glColor4f(color[0], color[1], color[2], color[3])
-
-                    matrix = context.object.matrix_world
-                    bounds = context.object.bound_box
-
-                    draw_corners(length, matrix, bounds)
-
-            elif option.mode == 'SELECTED':
-
-                for object in context.selected_objects:
-
-                    if object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'LATTICE'}:
-
-                        color = option.color if not option.use_object_color else object.color
+                        color = option.color if not option.use_object_color else context.object.color
                         glColor4f(color[0], color[1], color[2], color[3])
 
-                        matrix = object.matrix_world
-                        bounds = object.bound_box
+                        matrix = context.object.matrix_world
+                        bounds = context.object.bound_box
 
                         draw_corners(length, matrix, bounds)
 
-            glDisable(GL_DEPTH_TEST)
-            glDisable(GL_BLEND)
+                elif option.mode == 'SELECTED':
 
-        else: return
+                    for object in context.selected_objects:
 
-    else: return
+                        if object.type in {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'LATTICE'}:
+
+                            color = option.color if not option.use_object_color else object.color
+                            glColor4f(color[0], color[1], color[2], color[3])
+
+                            matrix = object.matrix_world
+                            bounds = object.bound_box
+
+                            draw_corners(length, matrix, bounds)
+
+                glDisable(GL_DEPTH_TEST)
+                glDisable(GL_BLEND)
 
 def draw_corners(length, matrix, bounds):
 
